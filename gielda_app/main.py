@@ -36,6 +36,7 @@ def get_gielda(db_session: Session=Depends(create_db_session)):
 })
 def get_gielda(id_akcji: int,db_session: Session=Depends(create_db_session)):
     """
+    **id_akcji**: Numer id Akcji
     show chosen record
     """
 
@@ -61,6 +62,7 @@ def post_gielda( nazwa:str, cena_kupna:int, cena_sprzedazy:int,db_session: Sessi
 @app.delete('/gielda/{id_akcji}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_akcja(id_akcji:int,db_session: Session=Depends(create_db_session)):
     """
+    **id_akcji**: Numer id Akcji
     Delete chosen record
     """
 

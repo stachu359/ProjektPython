@@ -31,7 +31,7 @@ def get_gieldas(db: Session ):
     return db.query(Gielda).all()
 
 def post_gielda(nazwa:str, cena_kupna:int, cena_sprzedazy:int,db: Session):
-    """adds new record & returns it"""
+    """adds new record to base & returns it"""
     new_gielda=Gielda(nazwa=nazwa, 
                     cena_kupna=cena_kupna, 
                     cena_sprzedazy=cena_sprzedazy, 
@@ -42,7 +42,7 @@ def post_gielda(nazwa:str, cena_kupna:int, cena_sprzedazy:int,db: Session):
     return new_gielda
 
 def delete_gielda( id_akcji:int, db: Session):
-    """delete record from base"""
+    """find chosen record and delete it from base"""
     db.execute(delete(Gielda).where(Gielda.id_akcji==id_akcji))
     db.commit()    
     

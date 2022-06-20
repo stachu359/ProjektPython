@@ -19,7 +19,7 @@ def create_db_session():
 @app.get("/",summary="Returns an index view.")
 def index():
 
-    return {"message":"Cokolwiek"}
+    return {"message":"Mini-Gielda"}
 
 @app.get('/gielda')
 def get_gielda(db_session: Session=Depends(create_db_session)):
@@ -35,6 +35,9 @@ def get_gielda(db_session: Session=Depends(create_db_session)):
     status.HTTP_404_NOT_FOUND:{"model":ErrorInfo}
 })
 def get_gielda(id_akcji: int,db_session: Session=Depends(create_db_session)):
+    """
+    show chosen record
+    """
 
     gielda=db_get_gielda(id_akcji,db_session)
     if gielda:
@@ -57,6 +60,9 @@ def post_gielda( nazwa:str, cena_kupna:int, cena_sprzedazy:int,db_session: Sessi
 
 @app.delete('/gielda/{id_akcji}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_akcja(id_akcji:int,db_session: Session=Depends(create_db_session)):
+    """
+    Delete chosen record
+    """
 
     db_gielda=get_gielda(id_akcji, db_session)
     if db_gielda:
@@ -65,5 +71,8 @@ def delete_akcja(id_akcji:int,db_session: Session=Depends(create_db_session)):
 
 @app.delete('/gielda', status_code=status.HTTP_204_NO_CONTENT)
 def drop_gielda(db_session: Session=Depends(create_db_session)):
+    """
+    Delete all* records
+    """
 
     db_drop_gielda(db_session)   

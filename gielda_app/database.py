@@ -21,15 +21,17 @@ class Gielda(Base):
     cena_kupna=Column(Integer, default=0)
     cena_sprzedazy=Column(Integer, default=0)
 
-def get_gielda(id_akcji:int, db: Session):
+def get_gielda(id_akcji:int, db: Session):  
+    """ find & return chosen record"""
     return db.query(Gielda).filter(
         Gielda.id_akcji==id_akcji).first()
 
 def get_gieldas(db: Session ):
+    """return all records"""
     return db.query(Gielda).all()
 
 def post_gielda(nazwa:str, cena_kupna:int, cena_sprzedazy:int,db: Session):
-    
+    """adds new record & returns it"""
     new_gielda=Gielda(nazwa=nazwa, 
                     cena_kupna=cena_kupna, 
                     cena_sprzedazy=cena_sprzedazy, 
@@ -40,10 +42,12 @@ def post_gielda(nazwa:str, cena_kupna:int, cena_sprzedazy:int,db: Session):
     return new_gielda
 
 def delete_gielda( id_akcji:int, db: Session):
+    """delete record from base"""
     db.execute(delete(Gielda).where(Gielda.id_akcji==id_akcji))
     db.commit()    
     
 def drop_gielda(db:Session):
+    """delete all* records from base"""
     rows=db.query(Gielda).count()
     for x in range(rows+1):
         db.execute(delete(Gielda).where(Gielda.id_akcji==x))
